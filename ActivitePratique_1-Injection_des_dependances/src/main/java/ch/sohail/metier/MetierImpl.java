@@ -1,8 +1,14 @@
 package ch.sohail.metier;
 
 import ch.sohail.dao.IDao;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
+@Component("metier")
 public class MetierImpl implements IMetier {
+    //@Autowired
+   //@Qualifier("d2")
     private IDao dao; // Couplage faible
 
     /**
@@ -10,13 +16,13 @@ public class MetierImpl implements IMetier {
      * un objet d'une classe qui implement l'interface IDao
      * au moment de la creation de l'objet (l'instantiation)
      */
-    public MetierImpl(IDao dao) {
+    public MetierImpl(@Qualifier("d") IDao dao) {
         this.dao = dao;
     }
 
-    public MetierImpl() {
-
-    }
+//    public MetierImpl() {
+//
+//    }
 
     @Override
     public double calcul() {
