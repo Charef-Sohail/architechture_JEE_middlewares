@@ -5,6 +5,8 @@
 
     <bean id="d" class="ch.sohail.dao.DaoImpl"></bean>
     <bean id="metier" class="ch.sohail.metier.MetierImpl">
-        <property name="dao" ref="d"></property>
+<!--        <property name="dao" ref="d"></property>-->
+        <constructor-arg ref="d"></constructor-arg>
+
     </bean>
 </beans>
