@@ -4,7 +4,7 @@ import ch.sohail.app.metier.IMetier;
 import ch.sohail.framework.IFrameworkContext;
 import ch.sohail.framework.XmlFrameworkContext;
 
-public class pres1 {
+public class presXML {
     public static void main(String[] args) {
         // Le développeur démarre ton framework
         IFrameworkContext context = new XmlFrameworkContext("src/main/resources/config.xml");

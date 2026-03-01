@@ -1,5 +1,8 @@
 package ch.sohail.app.dao;
 
+import ch.sohail.framework.Component;
+
+@Component("dao")
 public class DaoImpl implements IDao {
 
     @Override

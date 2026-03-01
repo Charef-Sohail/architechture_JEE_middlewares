@@ -2,7 +2,9 @@ package ch.sohail.app.metier;
 
 import ch.sohail.app.dao.IDao;
 import ch.sohail.framework.Autowired;
+import ch.sohail.framework.Component;
 
+@Component("metier")
 public class MetierImpl implements IMetier {
     //@Autowired -> pour l'injection par attribut
     private IDao dao;
