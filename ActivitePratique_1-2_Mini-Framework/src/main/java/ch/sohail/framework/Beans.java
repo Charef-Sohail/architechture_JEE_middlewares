@@ -6,14 +6,14 @@ import java.util.List;
 
 public class Beans {
 
-    List<Bean> beansList = new ArrayList<>();
+    List<Bean> beans = new ArrayList<>();
 
     @XmlElement(name = "bean")
-    public List<Bean> getbeansList() {
-        return beansList;
+    public List<Bean> getBeans() {
+        return beans;
     }
 
-    public void setbeansList() {
-        this.beansList = beansList;
+    public void setBeans(List<Bean> beans) {
+        this.beans = beans;
     }
 }
