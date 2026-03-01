@@ -4,7 +4,7 @@ import ch.sohail.app.dao.IDao;
 import ch.sohail.framework.Autowired;
 
 public class MetierImpl implements IMetier {
-    @Autowired
+    //@Autowired -> pour l'injection par attribut
     private IDao dao;
 
     public MetierImpl(IDao dao) {
@@ -21,6 +21,7 @@ public class MetierImpl implements IMetier {
         return result;
     }
 
+    @Autowired //pour l'injection par setter
     public void setDao(IDao dao) {
         this.dao = dao;
     }

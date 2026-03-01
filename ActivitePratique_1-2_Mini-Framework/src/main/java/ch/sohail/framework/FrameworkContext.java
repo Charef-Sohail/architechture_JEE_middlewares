@@ -4,6 +4,7 @@ import java.lang.reflect.Field;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.Unmarshaller;
 import java.io.File;
+import java.lang.reflect.Method;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -38,17 +39,53 @@ public class FrameworkContext {
                 Class<?> clazz = beanInstance.getClass();
 
                 // On récupère TOUS ses attributs (ex: private IDao dao;)
-                Field[] fields = clazz.getDeclaredFields();
+//                Field[] fields = clazz.getDeclaredFields();
+//
+//                for (Field field : fields) {
+//                    // Est-ce que cet attribut possède notre annotation @Autowired ?
+//                    if (field.isAnnotationPresent(Autowired.class)) {
+//
+//                        // 1. On cherche de quel type est cet attribut (ex: IDao)
+//                        Class<?> typeDuField = field.getType();
+//
+//                        // 2. On cherche dans notre Map un objet qui correspond à ce type
+//                        Object dependanceAInjecter = null;
+//                        for (Object objDansMap : beans.values()) {
+//                            // Si l'objet dans la map est compatible avec le type du field
+//                            if (typeDuField.isAssignableFrom(objDansMap.getClass())) {
+//                                dependanceAInjecter = objDansMap;
+//                                break;
+//                            }
+//                        }
+//
+//                        // 3. On injecte l'objet trouvé dans l'attribut !
+//                        if (dependanceAInjecter != null) {
+//                            try {
+//                                // C'est ici qu'on fait l'injection : field.set(objetCible, valeurAInjecter)
+//                                field.setAccessible(true);
+//                                field.set(beanInstance, dependanceAInjecter);
+//                            } catch (IllegalAccessException e) {
+//                                e.printStackTrace();
+//                            }
+//                        }
+//                    }
+//                }
+//
 
-                for (Field field : fields) {
-                    // Est-ce que cet attribut possède notre annotation @Autowired ?
-                    if (field.isAnnotationPresent(Autowired.class)) {
+                Method[] methods = clazz.getDeclaredMethods();
 
-                        // 1. On cherche de quel type est cet attribut (ex: IDao)
-                        Class<?> typeDuField = field.getType();
+                for (Method method : methods) {
+                    // Est-ce que ce setter possède notre annotation @Autowired ?
+                    if (method.isAnnotationPresent(Autowired.class)) {
 
-                        // 2. On cherche dans notre Map un objet qui correspond à ce type
-                        Object dependanceAInjecter = null;
+                        // 1. On récupère les paramètres de la méthode (un setter a normalement 1 seul paramètre)
+                        Class<?>[] parameterTypes = method.getParameterTypes();
+
+                        if (parameterTypes.length == 1) {
+                            Class<?> typeParametre = parameterTypes[0]; // ex: IDao
+
+                            // 2. On cherche la dépendance correspondante dans notre Map
+                            Object dependanceAInjecter = null;
                         for (Object objDansMap : beans.values()) {
                             // Si l'objet dans la map est compatible avec le type du field
                             if (typeDuField.isAssignableFrom(objDansMap.getClass())) {
@@ -56,15 +93,13 @@ public class FrameworkContext {
                                 break;
                             }
                         }
-
-                        // 3. On injecte l'objet trouvé dans l'attribut !
-                        if (dependanceAInjecter != null) {
-                            try {
-                                // C'est ici qu'on fait l'injection : field.set(objetCible, valeurAInjecter)
-                                field.setAccessible(true);
-                                field.set(beanInstance, dependanceAInjecter);
-                            } catch (IllegalAccessException e) {
-                                e.printStackTrace();
+                            // 3. On injecte en appelant le setter !
+                            if (dependanceAInjecter != null) {
+                                try {
+                                    method.invoke(beanInstance, dependanceAInjecter);
+                                } catch (Exception e) {
+                                    e.printStackTrace();
+                                }
                             }
                         }
                     }
