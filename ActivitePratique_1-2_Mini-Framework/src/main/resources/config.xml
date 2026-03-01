@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <beans>
-    <bean id="dao" class="ch.sohail.dao.DaoImpl" />
-    <bean id="metier" class="ch.sohail.metier.MetierImpl" />
+    <bean id="dao" class="ch.sohail.app.dao.DaoImpl" />
+    <bean id="metier" class="ch.sohail.app.metier.MetierImpl" />
 </beans>
