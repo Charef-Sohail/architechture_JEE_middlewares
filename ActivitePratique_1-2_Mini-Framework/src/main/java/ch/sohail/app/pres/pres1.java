@@ -8,7 +8,7 @@ public class pres1 {
         // Le développeur démarre ton framework
         FrameworkContext context = new FrameworkContext("src/main/resources/config.xml");
 
-// Et boum, il peut récupérer son métier prêt à l'emploi !
+// il peut récupérer son métier prêt à l'emploi !
         IMetier metier = (IMetier) context.getBean("metier");
     }
 }
