@@ -7,7 +7,7 @@ import ch.sohail.metier.MetierImpl;
 public class Pres1 {
     public static void main(String[] args) {
         DaoImplV2 dao = new DaoImplV2();
-        MetierImpl metier = new MetierImpl(dao);
+        MetierImpl metier = new MetierImpl(dao); // Injection via le constructor
         //metier.setDao(dao); // Injection des dependances via le setter
         System.out.println("MetierImpl calcul : " + metier.calcul());
     }

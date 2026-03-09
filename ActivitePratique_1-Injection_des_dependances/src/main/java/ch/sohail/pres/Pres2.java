@@ -14,15 +14,17 @@ public class Pres2 {
         Scanner sc = new Scanner(new File("config.txt"));
 
         String daoClassName = sc.nextLine();
-        Class cDao = Class.forName(daoClassName);
-        IDao dao = (IDao) cDao.newInstance();
+        Class cDao = Class.forName(daoClassName); //charger en memoire de type class
+        IDao dao = (IDao) cDao.getConstructor().newInstance(); //cree une instance
 
         String metierClassName = sc.nextLine();
         Class cMetier = Class.forName(metierClassName);
         IMetier metier = (IMetier) cMetier.getConstructor(IDao.class).newInstance(dao);
-//        IMetier metier = (IMetier) cMetier.getConstructor().newInstance();
-//        Method setDao = cMetier.getDeclaredMethod("setDao", IDao.class);
+//        IMetier metier = (IMetier) cMetier.getConstructor().newInstance(); // constructor sans parm
+//        Method setDao = cMetier.getDeclaredMethod("setDao", IDao.class); // setter
 //        setDao.invoke(metier, dao);
+
+
         System.out.println("RES="+metier.calcul());
     }
 

@@ -5,6 +5,7 @@
 
     <bean id="d" class="ch.sohail.dao.DaoImpl"></bean>
     <bean id="metier" class="ch.sohail.metier.MetierImpl">
+<!--        injection via le setter-->
 <!--        <property name="dao" ref="d"></property>-->
         <constructor-arg ref="d"></constructor-arg>
 
