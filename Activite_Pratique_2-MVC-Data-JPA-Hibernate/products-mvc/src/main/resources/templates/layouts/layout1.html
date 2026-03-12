@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+
+    <meta charset="UTF-8">
+    <title>My products</title>
+
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/5.3.8/css/bootstrap.min.css">
+
+</head>
+
+<body>
+
+
+<div th:replace="fragments/navbar :: navbar"></div>
+
+
+<div class="container mt-4" layout:fragment="content"></div>
+
+
+<div th:replace="fragments/footer :: footer"></div>
+
+<script src="/webjars/bootstrap/5.3.8/js/bootstrap.bundle.min.js"></script>
+
+</body>
+</html>
