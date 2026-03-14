@@ -2,8 +2,18 @@
 <html lang="en"
       xmlns:th="http://www.thymeleaf.org"
       xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-      layout:decorate="~{layouts/layout1}">
+      layout:decorate="~{layouts/layout1}"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
+<head>
+
+    <meta charset="UTF-8">
+    <title>My products</title>
+
+    <link rel="stylesheet"
+          href="/webjars/bootstrap/5.3.8/css/bootstrap.min.css">
+
+</head>
 <body>
 
 <div layout:fragment="content">
@@ -30,12 +40,15 @@
             <td th:text="${p.price}"></td>
             <td th:text="${p.quantity}"></td>
 
-            <td>
-                <a class="btn btn-danger"
-                   onclick="return confirm('Are you sure?')"
-                   th:href="@{/admin/deleteProduct(id=${p.id})}">
-                    Delete
-                </a>
+            <td sec:authorize="hasRole('ADMIN')">
+                <form method="post" th:action="@{/admin/deleteProduct(id=${p.id})}">
+                   <button type="submit" class="btn-danger"  onclick="return confirm('Are you sure?')"  >Delete</button>
+                </form>
+<!--                <a class="btn btn-danger"-->
+<!--                   onclick="return confirm('Are you sure?')"-->
+<!--                   th:href="@{/admin/deleteProduct(id=${p.id})}">-->
+<!--                    Delete-->
+<!--                </a>-->
             </td>
 
         </tr>
@@ -45,6 +58,8 @@
     </table>
 
 </div>
+<script src="/webjars/bootstrap/5.3.8/js/bootstrap.bundle.min.js"></script>
 
 </body>
+
 </html>

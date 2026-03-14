@@ -32,11 +32,12 @@ public PasswordEncoder passwordEncoder(){
 @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
     return http
-            .formLogin(Customizer.withDefaults()) //fl->fl.loginPage("/login")
+            .formLogin(fl->fl.loginPage("/login").permitAll()) //fl->fl.loginPage("/login")
+            .csrf(Customizer.withDefaults())
             .authorizeHttpRequests(ar->ar.requestMatchers("/user/**").hasRole("USER"))
             .authorizeHttpRequests(ar->ar.requestMatchers("/admin/**").hasRole("ADMIN"))
-            .authorizeHttpRequests(ar->ar.requestMatchers("/public/**").permitAll())
-            .authorizeHttpRequests(ar->ar.anyRequest().authenticated()) // il faut passer par l'auth
+            .authorizeHttpRequests(ar->ar.requestMatchers("/public/**","/css/**", "/js/**", "/images/**").permitAll())
+            .authorizeHttpRequests(ar->ar.anyRequest().authenticated())
             .exceptionHandling(eh->eh.accessDeniedPage("/notAuthorized"))
             .build();
 }

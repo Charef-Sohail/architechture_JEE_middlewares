@@ -1,5 +1,6 @@
 package ma.enset.productsmvc.web;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import ma.enset.productsmvc.entities.Product;
 import ma.enset.productsmvc.repository.ProductRepository;
@@ -33,7 +34,7 @@ public class ProductController {
         return "redirect:/user/index";
     }
 
-    @GetMapping("/admin/deleteProduct")
+    @PostMapping("/admin/deleteProduct")
     public String delete(@RequestParam(name="id") Long id){
         productRepository.deleteById(id);
         return "redirect:/user/index";
@@ -58,6 +59,18 @@ public class ProductController {
     @GetMapping("/notAuthorized")
     public String notAuthorized(){
         return "errors/403";
+    }
+
+
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+    @GetMapping("/logout")
+    public String logout(HttpSession session){
+        session.invalidate();
+        return "redirect:login";
     }
 
 }
