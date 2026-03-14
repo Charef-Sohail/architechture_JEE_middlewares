@@ -8,7 +8,7 @@
 
 <div layout:fragment="content">
 <div class="p-3">
-    <a class="btn btn-primary" th:href="@{/newProduct}">New Product</a>
+    <a class="btn btn-primary" th:href="@{/admin/newProduct}">New Product</a>
 </div>
     <table class="table">
 
@@ -33,7 +33,7 @@
             <td>
                 <a class="btn btn-danger"
                    onclick="return confirm('Are you sure?')"
-                   th:href="@{/deleteProduct(id=${p.id})}">
+                   th:href="@{/admin/deleteProduct(id=${p.id})}">
                     Delete
                 </a>
             </td>

@@ -33,8 +33,9 @@ public PasswordEncoder passwordEncoder(){
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
     return http
             .formLogin(Customizer.withDefaults()) //fl->fl.loginPage("/login")
-            .authorizeHttpRequests(ar->ar.requestMatchers("/index/**").hasRole("USER"))
-            .authorizeHttpRequests(ar->ar.requestMatchers("/saveProduct/**", "/deleteProduct/**").hasRole("ADMIN"))
+            .authorizeHttpRequests(ar->ar.requestMatchers("/user/**").hasRole("USER"))
+            .authorizeHttpRequests(ar->ar.requestMatchers("/admin/**").hasRole("ADMIN"))
+            .authorizeHttpRequests(ar->ar.requestMatchers("/public/**").permitAll())
             .authorizeHttpRequests(ar->ar.anyRequest().authenticated()) // il faut passer par l'auth
             .build();
 }
