@@ -44,6 +44,13 @@
                 <form method="post" th:action="@{/admin/deleteProduct(id=${p.id})}">
                    <button type="submit" class="btn-danger"  onclick="return confirm('Are you sure?')"  >Delete</button>
                 </form>
+
+                <form method="get">
+                    <a class="btn btn-primary"
+                        th:href="@{/admin/editProduct(id=${p.id})}">
+                    Edit
+                </a>
+                </form>
 <!--                <a class="btn btn-danger"-->
 <!--                   onclick="return confirm('Are you sure?')"-->
 <!--                   th:href="@{/admin/deleteProduct(id=${p.id})}">-->

@@ -23,9 +23,19 @@ public class ProductController {
     }
 
     @GetMapping("/user/index")
-    public String index(Model model){
-        List<Product> products = productRepository.findAll();
+    public String listProducts(@RequestParam(name = "keyword", required = false) String keyword, Model model){
+        List<Product> products;
+        System.out.println(keyword);
+        if(keyword!=null && !keyword.isEmpty()){
+            System.out.println(keyword);
+            products = productRepository.findByNameContainingIgnoreCase(keyword);
+        } else{
+            products = productRepository.findAll();
+        }
         model.addAttribute("products",products);
+        model.addAttribute("keyword",keyword);
+        //        List<Product> products = productRepository.findAll();
+//        model.addAttribute("products",products);
         return "products";
     }
 
@@ -55,6 +65,17 @@ public class ProductController {
         return "redirect:/user/index";
     }
 
+    @PostMapping("/admin/saveEditedProduct")
+    public String saveProduct(@Valid Product product, BindingResult bindingResult){
+
+        if(bindingResult.hasErrors()){
+            return "edit-product";
+        }
+
+        productRepository.save(product);
+
+        return "redirect:/user/index";
+    }
 
     @GetMapping("/notAuthorized")
     public String notAuthorized(){
@@ -71,6 +92,13 @@ public class ProductController {
     public String logout(HttpSession session){
         session.invalidate();
         return "redirect:login";
+    }
+
+
+    @GetMapping("/admin/editProduct")
+    public String edit(@RequestParam(name="id") Long id,Model model){
+        model.addAttribute("product",productRepository.findById(id).orElse(null));
+        return "edit-product";
     }
 
 }

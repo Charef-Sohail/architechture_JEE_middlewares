@@ -36,7 +36,14 @@ public PasswordEncoder passwordEncoder(){
             .csrf(Customizer.withDefaults())
             .authorizeHttpRequests(ar->ar.requestMatchers("/user/**").hasRole("USER"))
             .authorizeHttpRequests(ar->ar.requestMatchers("/admin/**").hasRole("ADMIN"))
-            .authorizeHttpRequests(ar->ar.requestMatchers("/public/**","/css/**", "/js/**", "/images/**").permitAll())
+            .authorizeHttpRequests(ar->ar.requestMatchers(
+                    "/public/**",
+                    "/css/**",
+                    "/js/**",
+                    "/images/**",
+                    "/webjars/**",
+                    "/login"
+            ).permitAll())
             .authorizeHttpRequests(ar->ar.anyRequest().authenticated())
             .exceptionHandling(eh->eh.accessDeniedPage("/notAuthorized"))
             .build();
