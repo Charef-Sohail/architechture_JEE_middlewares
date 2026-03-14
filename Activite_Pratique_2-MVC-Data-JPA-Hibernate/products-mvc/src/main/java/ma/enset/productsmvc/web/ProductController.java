@@ -55,4 +55,9 @@ public class ProductController {
     }
 
 
+    @GetMapping("/notAuthorized")
+    public String notAuthorized(){
+        return "errors/403";
+    }
+
 }

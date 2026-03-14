@@ -37,6 +37,7 @@ public PasswordEncoder passwordEncoder(){
             .authorizeHttpRequests(ar->ar.requestMatchers("/admin/**").hasRole("ADMIN"))
             .authorizeHttpRequests(ar->ar.requestMatchers("/public/**").permitAll())
             .authorizeHttpRequests(ar->ar.anyRequest().authenticated()) // il faut passer par l'auth
+            .exceptionHandling(eh->eh.accessDeniedPage("/notAuthorized"))
             .build();
 }
 
